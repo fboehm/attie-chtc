@@ -39,6 +39,15 @@ MphEM(Y = Y, X = X1, eval = eval, V_g = diag(2), V_e = diag(2)) -> g_out
 g_out[[length(g_out)]][[2]] -> Vg
 g_out[[length(g_out)]][[3]] -> Ve
 snp1 <- which(pm2 > 147)[1]
+scan_pvl(probs = pp3, 
+         pheno = phe_nona, 
+         kinship = kinship, 
+         start_snp1 = snp1, 
+         start_snp2 = snp1, 
+         n_snp = 250
+         ) -> foo1
+tidy_scan_pvl(foo1, pmap$`5`) -> bar
+
 
 bar2 <- bar %>%
   filter(trace == "pleio")
@@ -57,7 +66,7 @@ system.time(pvl_boot(X = X1, B = B, Vg_initial = Vg, Ve_initial = Ve,
 
 fn <- paste0("boot-out_", proc_num, ".csv")
 
-readr::write_csv(boot_out, fn)
+write.csv(boot_out, fn)
 
 q("no")
 
