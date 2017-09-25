@@ -1,0 +1,6 @@
+data
+*.Rout
+*.out
+*.err
+*.log
+
