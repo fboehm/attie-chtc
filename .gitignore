@@ -4,4 +4,5 @@ data
 *.err
 *.log
 *.swp
+*.csv
 
