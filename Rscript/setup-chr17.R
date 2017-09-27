@@ -1,4 +1,4 @@
-pp <- probs$`17`
+pp <- probs
 pm <- pmap$`17`
 kinship <- K$`17`
 

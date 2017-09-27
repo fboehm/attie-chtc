@@ -8,7 +8,8 @@ cbp <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55
 #PATH_TO_DERIVED_DATA <- "~/Box Sync/attie/attiedo"
 PATH_TO_DATA <- "data"
 #PATH_TO_DERIVED_DATA <- "~/attie"
-load("probs_5.RData")
+load("probs_17.RData")
+. -> probs
 #load(file.path(PATH_TO_DATA, "GM_Attie_allele_call_haploprobs_4qtl2_wave5.Rdata"))
 ### clinical phenotypes + phenotype dictionary
 ### ("pheno_clin" and "pheno_clin_dict")
