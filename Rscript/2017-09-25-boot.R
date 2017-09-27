@@ -24,7 +24,7 @@ library(pleiotropy)
 # load data
 
 source("Rscript/setup.R")
-source("Rscript/setup-chr5.R")
+source("Rscript/setup-chr17.R")
 eigen2(kinship) -> e_out
 e_out$vectors -> U
 e_out$values -> eval
@@ -38,7 +38,7 @@ Y <- t(phe_nona) %*% U
 MphEM(Y = Y, X = X1, eval = eval, V_g = diag(2), V_e = diag(2)) -> g_out
 g_out[[length(g_out)]][[2]] -> Vg
 g_out[[length(g_out)]][[3]] -> Ve
-snp1 <- which(pm2 > 147)[1]
+snp1 <- which(pm2 > 31)[1]
 scan_pvl(probs = pp3, 
          pheno = phe_nona, 
          kinship = kinship, 
