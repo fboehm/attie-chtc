@@ -15,7 +15,7 @@ if(length(args)==0){
 print(argname)
 proc_num <- as.numeric(argname)
 print(proc_num)
-### define nn
+### define nn -- CHANGE THIS AS NEEDED
 nn <- 3
 
 i <- proc_num %/% nn + 1
@@ -64,13 +64,14 @@ pp2 <- pp[ , , snp_g %in% shared_snps]
 pm2 <- pm[snp_p %in% shared_snps]
 
 ## ------------------------------------------------------------------------
-phenames <- c("Insulin at sac", "oGTT weight")
+phenames <- c("Insulin at sac", "weight change for week 11 vs week 1")
+
 (g <- grep(phenames[1], pheno_clin_dict$name))
 pheno_clin_dict[g, ]
 foo <- pheno_clin[ , pheno_clin_dict[g, "short_name"]]
 phe1 <- log(broman::winsorize(foo)) # take logs and winsorize (rather heavily!)
 (g <- grep(phenames[2], pheno_clin_dict$name))
-g <- 78 # use the first value here, after checking the two names!
+#g <- 78 # use the first value here, after checking the two names!
 pheno_clin_dict[g, ]
 bar <- pheno_clin[ , pheno_clin_dict[g, "short_name"]]
 phe2 <- log(broman::winsorize(bar)) 
@@ -95,46 +96,25 @@ print(dim(kinship_nona))
 pp2_nona <- pp2[!missing, , ]
 print(dim(pp2_nona))
 ## ------------------------------------------------------------------------
-start_snp <- which(pm2 > 31.1)[1]
-#stop_snp <- which(pm2 > 150)[1]
-start_snp_i <- (i - 1)* 10 + 1 + start_snp 
-stop_snp_i <- i * 10 + start_snp
 
-start_snp_j <- (j - 1)* 10 + 1 + start_snp
-stop_snp_j <- j * 10 + start_snp
+snp1 <- which(pm2 > 31)[1]
+#stop_snp <- which(pm2 > 150)[1]
+start_snp_i <- (i - 1)* 10 + snp1 
+start_snp_j <- (j - 1)* 10 + snp1
 
 ## ------------------------------------------------------------------------
-n_snp <- stop_snp_i - start_snp_i + 1
-loglik <- matrix(NA, nrow = n_snp, ncol = n_snp)
-#reg_obj <- list()
-#reg_obj_i <- list()
-i_count <- 0
-j_count <- 0
-for (i in start_snp_i:stop_snp_i){
-  i_count <- i_count + 1
-  print(i)
-  for (j in start_snp_j:stop_snp_j){
-    j_count <- j_count + 1
-    out <- fit1_bvlmm(Y = phe_nona, 
-                                  X1 = pp2_nona[ , , i], 
-                                  X2 = pp2_nona[ , , j], 
-                                  Kmat = kinship_nona
-                                    )
-    
-    assemble_Ve(out$sigma) -> Ve
-    assemble_Vg(out$sigma) -> Vg
-    ll <- calc_ll_bvlmm(yvec = as.vector(phe_nona), 
-                        Xmat = stagger_mats(pp2_nona[ , , i], pp2_nona[ , , j]),
-                        betahat = out$beta, 
-                        Vg = Vg, 
-                        Ve = Ve,
-                        Kmat = kinship_nona)
-    print(c(i_count, j_count))
-    ll -> loglik[i_count, ((j_count - 1) %% 10) + 1]
-   # out -> reg_obj_i[[j - start_snp + 1]]
-  }
-  #reg_obj[[i - start_snp + 1]] <- reg_obj_i
-}
 
-save("loglik", file = paste0("out_", i, "_", j, ".RData"))
+library(qtl2pleio)
+scan_pvl(probs = pp2_nona, 
+         pheno = phe_nona, 
+         kinship = kinship_nona, 
+         start_snp1 = start_snp_i, 
+         start_snp2 = start_snp_j, 
+         n_snp = 10
+         ) -> foo
+fn <- paste0("scan_pvl-out-", i, "-", j, ".csv")
+write.csv(foo, fn)
+
 q("no")
+
+
