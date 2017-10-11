@@ -16,6 +16,10 @@ print(argname)
 proc_num <- as.numeric(argname)
 print(proc_num)
 set.seed(proc_num)
+## process index from command line
+as.numeric(index) -> snp_index
+
+
 ## ------------------------------------------------------------------------
 library(dplyr)
 library(qtl2pleio)
@@ -40,25 +44,13 @@ g_out[[length(g_out)]][[2]] -> Vg
 g_out[[length(g_out)]][[3]] -> Ve
 ## set start POINT HERE
 snp1 <- 175
-scan_pvl(probs = pp3, 
-         pheno = phe_nona, 
-         kinship = kinship, 
-         start_snp1 = snp1, 
-         start_snp2 = snp1, 
-         n_snp = 50
-         ) -> foo1
-tidy_scan_pvl(foo1, pmap$`2`) -> bar
-
-
-bar2 <- bar %>%
-  filter(trace == "pleio")
-index <- which.max(bar2$lod) + snp1 - 1
 
 # get Bhat
 Sigma <- kinship %x% Vg + diag(n_mouse) %x% Ve
-X1 <- pp3[ , , index]
+X1 <- pp3[ , , snp_index]
 X <- pleiotropy::stagger_mats(X1, X1)
-Bhat <- calc_Bhat(X = X, Y = phe_nona, Sigma = Sigma)
+phe_nona_vec <- as.vector(phe_nona)
+Bhat <- calc_Bhat(X = X, Y = as.matrix(phe_nona_vec), Sigma = Sigma)
 B <- matrix(data = Bhat, byrow = FALSE, ncol = 2)
 system.time(pvl_boot(X = X1, B = B, Vg_initial = Vg, Ve_initial = Ve, 
                      kinship = kinship, probs = pp3, start_snp = snp1, 

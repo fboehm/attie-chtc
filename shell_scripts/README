@@ -1,0 +1,1 @@
+need two arguments when running bootstrap, since we need to tell R which SNP to use for simulating the trait.
