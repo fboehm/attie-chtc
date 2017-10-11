@@ -22,9 +22,9 @@ library(qtl2pleio)
 library(gemma2)
 library(pleiotropy)
 # load data
-
+phe_nona <- as.matrix(read.csv("sim_data/2017-10-11-sim_pleio.csv"))
 source("Rscript/setup.R")
-source("Rscript/setup-chr17.R")
+source("Rscript/setup-chr2a.R")
 eigen2(kinship) -> e_out
 e_out$vectors -> U
 e_out$values -> eval
@@ -38,20 +38,20 @@ Y <- t(phe_nona) %*% U
 MphEM(Y = Y, X = X1, eval = eval, V_g = diag(2), V_e = diag(2)) -> g_out
 g_out[[length(g_out)]][[2]] -> Vg
 g_out[[length(g_out)]][[3]] -> Ve
-snp1 <- which(pm2 > 31)[1]
+snp1 <- 75
 scan_pvl(probs = pp3, 
          pheno = phe_nona, 
          kinship = kinship, 
          start_snp1 = snp1, 
          start_snp2 = snp1, 
-         n_snp = 250
+         n_snp = 50
          ) -> foo1
-tidy_scan_pvl(foo1, pmap$`5`) -> bar
+tidy_scan_pvl(foo1, pmap$`2`) -> bar
 
 
 bar2 <- bar %>%
   filter(trace == "pleio")
-index <- which.max(bar2$lod) + snp1
+index <- which.max(bar2$lod) + snp1 - 1
 
 # get Bhat
 Sigma <- kinship %x% Vg + diag(n_mouse) %x% Ve
@@ -61,7 +61,7 @@ Bhat <- calc_Bhat(X = X, Y = phe_nona, Sigma = Sigma)
 B <- matrix(data = Bhat, byrow = FALSE, ncol = 2)
 system.time(pvl_boot(X = X1, B = B, Vg_initial = Vg, Ve_initial = Ve, 
                      kinship = kinship, probs = pp3, start_snp = snp1, 
-                     n_snp = 250, nboot = 1) -> boot_out
+                     n_snp = 50, nboot = 1) -> boot_out
 )
 
 fn <- paste0("boot-out_", proc_num, ".csv")
