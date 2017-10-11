@@ -8,5 +8,5 @@ export PATH=$(pwd)/R/bin:$PATH
 
 # run R, with the name of your  R script
 #R CMD BATCH '--args argname='$1'' Rscript/2017-09-25-boot.R ''$1'.Rout'
-R CMD BATCH '--args argname='$1'' Rscript/2017-10-02_pvl_scan.R ''$1'.Rout'
+R CMD BATCH '--args argname='$1'' Rscript/2017-10-05_pvl_scan_simdata-link10.R ''$1'.Rout'
 

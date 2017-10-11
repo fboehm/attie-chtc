@@ -16,7 +16,7 @@ print(argname)
 proc_num <- as.numeric(argname)
 print(proc_num)
 ### define nn -- CHANGE THIS AS NEEDED
-nn <- 20
+nn <- 15
 ## nn should be set to sqrt of total number of jobs.
 ## for 400 jobs, put nn = 20
 i <- proc_num %/% nn + 1
@@ -41,22 +41,27 @@ PATH_TO_DERIVED_DATA <- "data"
 #PATH_TO_DERIVED_DATA <- "~/Box Sync/attie/attiedo"
 #PATH_TO_DERIVED_DATA <- "~/attie"
 #load(file.path(PATH_TO_DERIVED_DATA, "DerivedData/GM_Attie_allele_call_haploprobs_4qtl2_wave5.Rdata"))
-load("probs_17.RData") 
+load("probs_2.RData") 
 . -> pp
 ### clinical phenotypes + phenotype dictionary
 ### ("pheno_clin" and "pheno_clin_dict")
-load(file.path(PATH_TO_DERIVED_DATA, "pheno_clin.RData"))
+#load(file.path(PATH_TO_DERIVED_DATA, "pheno_clin.RData"))
 ### kinship matrices ("loco" method) ("K")
 load(file.path(PATH_TO_DERIVED_DATA, "kinship.RData"))
 ### covariate matrix ("covar")
 #load(file.path(PATH_TO_DERIVED_DATA, "DerivedData/covar.RData"))
 ### physical map of the markers in the probs array
 load(file.path(PATH_TO_DERIVED_DATA, "probs_pmap.RData"))
+# read csv file containing simulated phenotype
+library(readr)
+read_csv("sim_data/2017-10-05-sim_link20.csv") -> phe
+phe <- as.matrix(phe)
+
 
 ## ------------------------------------------------------------------------
 
-pm <- pmap$`17`
-kinship <- K$`17`
+pm <- pmap$`2`
+kinship <- K$`2`
 ## Determine which markers are shared between pmap & gmap
 snp_g <- dimnames(pp)[[3]]
 snp_p <- names(pm)
@@ -65,24 +70,8 @@ pp2 <- pp[ , , snp_g %in% shared_snps]
 pm2 <- pm[snp_p %in% shared_snps]
 
 ## ------------------------------------------------------------------------
-phenames <- c("Insulin at sac", "weight change for week 11 vs week 1")
+phenames <- c("t1", "t2")
 
-(g <- grep(phenames[1], pheno_clin_dict$name))
-pheno_clin_dict[g, ]
-foo <- pheno_clin[ , pheno_clin_dict[g, "short_name"]]
-phe1 <- log(broman::winsorize(foo)) # take logs and winsorize (rather heavily!)
-(g <- grep(phenames[2], pheno_clin_dict$name))
-#g <- 78 # use the first value here, after checking the two names!
-pheno_clin_dict[g, ]
-bar <- pheno_clin[ , pheno_clin_dict[g, "short_name"]]
-phe2 <- log(broman::winsorize(bar)) 
-# match phenotypes & genotypes ordering
-foo <- cbind(phe1, phe2)
-rownames(foo) <- rownames(pheno_clin)
-rownames(foo) -> rn
-match_out <- match(rownames(pp2), rn)
-phe <- foo[match_out, ]
-rownames(phe) == rownames(pp2)
 # Remove NAs from phe
 ## first, make an indicator for missingness
 missing <- is.na(phe[ , 1]) | is.na(phe[ , 2])
@@ -98,7 +87,7 @@ pp2_nona <- pp2[!missing, , ]
 print(dim(pp2_nona))
 ## ------------------------------------------------------------------------
 
-snp1 <- which(pm2 > 31)[1]
+snp1 <- 180
 #stop_snp <- which(pm2 > 150)[1]
 start_snp_i <- (i - 1)* 10 + snp1 
 start_snp_j <- (j - 1)* 10 + snp1

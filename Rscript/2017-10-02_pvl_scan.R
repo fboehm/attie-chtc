@@ -41,7 +41,7 @@ PATH_TO_DERIVED_DATA <- "data"
 #PATH_TO_DERIVED_DATA <- "~/Box Sync/attie/attiedo"
 #PATH_TO_DERIVED_DATA <- "~/attie"
 #load(file.path(PATH_TO_DERIVED_DATA, "DerivedData/GM_Attie_allele_call_haploprobs_4qtl2_wave5.Rdata"))
-load("probs_17.RData") 
+load("probs_2.RData") 
 . -> pp
 ### clinical phenotypes + phenotype dictionary
 ### ("pheno_clin" and "pheno_clin_dict")
@@ -55,8 +55,8 @@ load(file.path(PATH_TO_DERIVED_DATA, "probs_pmap.RData"))
 
 ## ------------------------------------------------------------------------
 
-pm <- pmap$`17`
-kinship <- K$`17`
+pm <- pmap$`2`
+kinship <- K$`2`
 ## Determine which markers are shared between pmap & gmap
 snp_g <- dimnames(pp)[[3]]
 snp_p <- names(pm)
@@ -65,7 +65,7 @@ pp2 <- pp[ , , snp_g %in% shared_snps]
 pm2 <- pm[snp_p %in% shared_snps]
 
 ## ------------------------------------------------------------------------
-phenames <- c("Insulin at sac", "weight change for week 11 vs week 1")
+phenames <- c("oGTT weight", "body weight week 5")
 
 (g <- grep(phenames[1], pheno_clin_dict$name))
 pheno_clin_dict[g, ]
@@ -98,7 +98,7 @@ pp2_nona <- pp2[!missing, , ]
 print(dim(pp2_nona))
 ## ------------------------------------------------------------------------
 
-snp1 <- which(pm2 > 31)[1]
+snp1 <- which(pm2 > 134)[1]
 #stop_snp <- which(pm2 > 150)[1]
 start_snp_i <- (i - 1)* 10 + snp1 
 start_snp_j <- (j - 1)* 10 + snp1
