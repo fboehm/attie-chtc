@@ -15,10 +15,14 @@ if(length(args)==0){
 print(argname)
 proc_num <- as.numeric(argname)
 print(proc_num)
-set.seed(proc_num)
-## process index from command line
-as.numeric(index) -> snp_index
+nboot <- as.numeric(nboot)
+print(nboot)
+snp1 <- as.numeric(snp1)
+nn <- as.numeric(nn)
+n_snp <- as.numeric(n_snp)
 
+
+yid <- proc_num %% nboot
 
 ## ------------------------------------------------------------------------
 library(dplyr)
@@ -26,40 +30,25 @@ library(qtl2pleio)
 library(gemma2)
 library(pleiotropy)
 # load data
-phe_nona <- as.matrix(read.csv("sim_data/2017-10-11-sim_pleio.csv"))
+phe_nona <- as.matrix(read.csv(paste0("sim_data/2017-10-11-sim_pleio_", yid, ".csv")))
 source("Rscript/setup.R")
 source("Rscript/setup-chr2a.R")
-eigen2(kinship) -> e_out
-e_out$vectors -> U
-e_out$values -> eval
 ## ------------------------------------------------------------------------
-n_mouse <- nrow(pp3)
-
-X1pre <- rep(1, n_mouse) %>% as.matrix() %>% t()
-X1 <- X1pre %*% U
-Y <- t(phe_nona) %*% U
-
-MphEM(Y = Y, X = X1, eval = eval, V_g = diag(2), V_e = diag(2)) -> g_out
-g_out[[length(g_out)]][[2]] -> Vg
-g_out[[length(g_out)]][[3]] -> Ve
 ## set start POINT HERE
-snp1 <- 175
+#snp1 <- 175
 
-# get Bhat
-Sigma <- kinship %x% Vg + diag(n_mouse) %x% Ve
-X1 <- pp3[ , , snp_index]
-X <- pleiotropy::stagger_mats(X1, X1)
-phe_nona_vec <- as.vector(phe_nona)
-Bhat <- calc_Bhat(X = X, Y = as.matrix(phe_nona_vec), Sigma = Sigma)
-B <- matrix(data = Bhat, byrow = FALSE, ncol = 2)
-system.time(pvl_boot(X = X1, B = B, Vg_initial = Vg, Ve_initial = Ve, 
-                     kinship = kinship, probs = pp3, start_snp = snp1, 
-                     n_snp = 50, nboot = 1) -> boot_out
-)
+
+
+start_snp_i <- (i - 1)* 10 + snp1
+start_snp_j <- (j - 1)* 10 + snp1
+
+
+scan_pvl(probs = pp3, pheno = phe_nona, kinship = kinship, start_snp1 = start_snp_i, start_snp2 = start_snp_j, n_snp = 10) -> scan_out
+
 
 fn <- paste0("boot-out_", proc_num, ".csv")
 
-write.csv(boot_out, fn)
+write.csv(scan_out, fn)
 
 q("no")
 
