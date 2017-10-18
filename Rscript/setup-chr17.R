@@ -39,5 +39,5 @@ rownames(phe) -> names(p2)
 na_ind <- is.na(phe[, 1]) | is.na(phe[, 2])
 phe_nona <- phe[!na_ind, ]
 pp3 <- pp2[!na_ind, , ]
-kinship <- kinship[!na_ind, !na_ind]
-n <- nrow(kinship)
+kinship_nona <- kinship[!na_ind, !na_ind]
+n <- nrow(kinship_nona)

@@ -2,7 +2,7 @@
 # My very first HTCondor submit file
 s1 = 1245
 nsnp = 100
-index = 
+index = 1290
 #
 # Specify the HTCondor Universe (vanilla is the default and is used
 #  for almost all jobs), the desired name of the HTCondor log file,
@@ -18,7 +18,7 @@ error = boot-$(Process).err
 #  output (or "screen output").
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
-executable = ../shell_scripts/run_R-2args.sh
+executable = ../shell_scripts/2017-10-18_runR.sh
 arguments = $(Process) $(nsnp) $(s1) $(index)
 output = boot-$(Process).out
 #

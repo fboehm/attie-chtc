@@ -23,8 +23,8 @@ index <- as.numeric(index)
 
 ###############
 # first, load setup.R
-source("setup.R")
-source("setup-chr17.R")
+source("Rscript/setup.R")
+source("Rscript/setup-chr17.R")
 library(qtl2pleio)
 
 # simulate a phenotype
