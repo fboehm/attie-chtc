@@ -6,7 +6,7 @@ nsnp=61
 # length of scan in number of SNPs
 index=1364
 # index is location of pleiotropy peak
-nboot_per_job=1
+nboot_per_job=10
 #
 # Specify the HTCondor Universe (vanilla is the default and is used
 #  for almost all jobs), the desired name of the HTCondor log file,
@@ -22,9 +22,9 @@ error = boot-$(Process).err
 #  output (or "screen output").
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
-executable = ../shell_scripts/2017-10-30_runR.sh
+executable = ../shell_scripts/2017-10-31-pvl100.sh
 arguments = $(Process) $(nsnp) $(s1) $(index) $(nboot_per_job)
-output = boot-$(Process).out
+output = pvl100-$(Process).out
 #
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -40,10 +40,10 @@ request_memory = 2GB
 request_disk = 2GB
 #
 # extra stuff for 'materialize'
-max_materialize = 5000
+#max_materialize = 5000
 requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 
 #
 # Tell HTCondor to run instances of our job:
-queue 100000
+queue 100
 

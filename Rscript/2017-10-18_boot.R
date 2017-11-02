@@ -24,7 +24,7 @@ index <- as.numeric(index)
 ###############
 # first, load setup.R
 source("Rscript/setup.R")
-source("Rscript/setup-chr17.R")
+source("Rscript/setup-chr17-G83.R")
 library(qtl2pleio)
 
 # simulate a phenotype
@@ -40,7 +40,9 @@ solve(Sigma) -> Sigma_inv
 # calc Bhat 
 B <- calc_Bhat(X = X, Sigma_inv = Sigma_inv, Y = phe_nona)
 
-sim1(X = X, B = B, Vg = Vg, Ve = Ve, kinship = kinship_nona) -> Ysim
+sim1(X = X, B = B, Vg = Vg, Ve = Ve, kinship = kinship_nona) -> foo
+matrix(foo, ncol = 2, byrow = FALSE) -> Ysim
+
 scan_pvl(probs = pp3, pheno = Ysim, kinship = kinship_nona, start_snp1 = s1, n_snp = nsnp) -> loglik_mat
 # in above call, s1 & nsnp come from command line args
 calc_lrt(loglik_mat) -> lrt

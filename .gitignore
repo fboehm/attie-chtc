@@ -1,5 +1,6 @@
 *.RData
 data
+sim_data
 *.Rout
 *.out
 *.err
