@@ -14,8 +14,8 @@ nboot_per_job=1
 #  Wherever you see $(Cluster), HTCondor will insert the queue number
 #  assigned to this set of jobs at the time of submission.
 universe = vanilla
-log = boot-$(Process).log
-error = boot-$(Process).err
+log = boot-$(myprocess).log
+error = boot-$(myprocess).err
 #
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
@@ -23,8 +23,8 @@ error = boot-$(Process).err
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
 executable = ../shell_scripts/runR.sh
-arguments = $(Process) $(nsnp) $(s1) $(index) $(nboot_per_job)
-output = boot-$(Process).out
+arguments = $(myprocess) $(nsnp) $(s1) $(index) $(nboot_per_job)
+output = boot-$(myprocess).out
 #
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -48,5 +48,5 @@ requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 +WantGlideIn = true
 
 # Tell HTCondor to run instances of our job:
-queue 100000
+queue myprocess from list2.txt
 
