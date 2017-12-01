@@ -51,7 +51,7 @@ phenames <- c("sim1", "sim2")
 #(cbind(phe1, phe2) -> phe_pre)
 nboot_per_pheno <- 400
 
-trait_file_num <- proc_num %% nboot_per_pheno
+(trait_file_num <- proc_num %% nboot_per_pheno)
  # here is where we assign the trait file name
 # note that we've uploaded 100 files, each of which contains a bivariate trait.
 fn <- paste0("2017-11-29_Ysim_", trait_file_num, ".txt")
