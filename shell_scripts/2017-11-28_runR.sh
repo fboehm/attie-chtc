@@ -10,3 +10,4 @@ export LD_LIBRARY_PATH=$(pwd)/SS:$LD_LIBRARY_PATH
 #R CMD BATCH '--args argname='$1'' Rscript/2017-09-25-boot.R ''$1'.Rout'
 R CMD BATCH '--args argname='$1' nsnp='$2' s1='$3' index='$4' nboot_per_job='$5'' Rscript/2017-11-28_test-grid.R ''$1'.test-grid.Rout'
 
+# rm *.Rout

@@ -51,12 +51,12 @@ phenames <- c("sim1", "sim2")
 #(cbind(phe1, phe2) -> phe_pre)
 nboot_per_pheno <- 400
 
-trait_file_num <- proc_num %/% nboot_per_pheno
+trait_file_num <- proc_num %% nboot_per_pheno
  # here is where we assign the trait file name
 # note that we've uploaded 100 files, each of which contains a bivariate trait.
-fn <- paste0("2017-11-27_Ysim_", trait_file_num, ".txt")
+fn <- paste0("2017-11-29_Ysim_", trait_file_num, ".txt")
 
-PATH_TO_SIM_DATA <- "2017-11-27_400sims"
+PATH_TO_SIM_DATA <- "2017-11-29_400sims"
 
 as.matrix(read.table(file.path(PATH_TO_SIM_DATA, fn))) -> phe_pre
 phe_pre[ , 1] -> phe1
@@ -97,13 +97,17 @@ rownames(k3) == rownames(phe4)
 
 
 
+(read.csv(file.path(PATH_TO_SIM_DATA, "2017-11-30_pleio-peak-indices-table.csv")) -> pleio_peak_indices)
 
-(unlist(read.csv(file.path(PATH_TO_SIM_DATA, "2017-11-28_pleio-peak-indices.csv"))) -> pleio_peak_indices)
+#(ind <- 1 + (proc_num %/% nboot_per_pheno))
+print(fn)
+(fn_ind <- which(pleio_peak_indices$Yfns == fn))
+(pleio_peak_index <- pleio_peak_indices$pleio_indices[fn_ind])
+#(pleio_peak_index <- pleio_peak_indices[ind])
 
-(ind <- 1 + (proc_num %/% nboot_per_pheno))
 
 
-(pleio_peak_index <- pleio_peak_indices[ind])
+
 
 # simulate a phenotype
 #X1 <- pp5[ , , index]X1 <- pp5[ , , index] #index is from command line args
