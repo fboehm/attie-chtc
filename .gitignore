@@ -8,3 +8,4 @@ sim_data
 *.swp
 *.csv
 
+.Rproj.user
