@@ -2,3 +2,5 @@
 old_sub_files
 results
 *.digest
+*.items
+old

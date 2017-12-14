@@ -97,7 +97,7 @@ rownames(k3) == rownames(phe4)
 
 
 
-(read.csv(file.path(PATH_TO_SIM_DATA, "2017-12-07_pleio-peak-indices-table-run3.csv")) -> pleio_peak_indices)
+(read.csv(file.path(PATH_TO_SIM_DATA, "2017-12-07_pleio-peak-indices-table-run7.csv")) -> pleio_peak_indices)
 
 #(ind <- 1 + (proc_num %/% nboot_per_pheno))
 print(fn)
@@ -136,9 +136,8 @@ for (i in 1:nboot_per_job){
   calc_lrt(loglik_mat) -> lrt[i]
 }
 
-#"2017-11-06" -> date
 date <- Sys.Date()
-fn <- paste0(date, "_", proc_num, "_", paste(phenames, collapse = "_"), "-run3", ".txt")
+fn <- paste0(date, "_", proc_num, "_", paste(phenames, collapse = "_"), "-run7", ".txt")
 write.table(lrt, fn)
 q("no")
 

@@ -40,13 +40,12 @@ request_memory = 1.35GB
 request_disk = 760MB
 #
 # extra stuff for 'materialize'
-max_materialize = 5000
 requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 
 # which computer grids to use:
 +WantFlocking = true
-+WantGlideIn = true
++WantGlideIn = false
 
 # Tell HTCondor to run instances of our job:
-queue 16000
+queue 10
 
