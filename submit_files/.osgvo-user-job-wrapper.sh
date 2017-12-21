@@ -124,6 +124,11 @@ if [ "x$OSG_SINGULARITY_REEXEC" = "x" ]; then
                 fi
             fi
         fi
+    
+        # set up the env to make sure Singularity uses the glidein dir for exported /tmp, /var/tmp
+        if [ "x$GLIDEIN_Tmp_Dir" != "x" -a -e "$GLIDEIN_Tmp_Dir" ]; then
+            export SINGULARITY_WORKDIR=$GLIDEIN_Tmp_Dir/singularity-work.$$
+        fi
         
         OSG_SINGULARITY_EXTRA_OPTS=""
    
@@ -189,6 +194,7 @@ if [ "x$OSG_SINGULARITY_REEXEC" = "x" ]; then
 else
     # we are now inside singularity - fix up the env
     unset TMP
+    unset TMPDIR
     unset TEMP
     unset X509_CERT_DIR
     for key in AUTHTOKEN X509_USER_PROXY X509_USER_CERT \

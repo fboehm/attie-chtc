@@ -97,7 +97,7 @@ rownames(k3) == rownames(phe4)
 
 
 
-(read.csv(file.path(PATH_TO_SIM_DATA, "2017-12-07_pleio-peak-indices-table-run7.csv")) -> pleio_peak_indices)
+(read.csv(file.path(PATH_TO_SIM_DATA, "2017-12-14_pleio-peak-indices-table-run7.csv")) -> pleio_peak_indices)
 
 #(ind <- 1 + (proc_num %/% nboot_per_pheno))
 print(fn)

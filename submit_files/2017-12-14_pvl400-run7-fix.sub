@@ -14,8 +14,8 @@ nboot_per_job=10
 #  Wherever you see $(Cluster), HTCondor will insert the queue number
 #  assigned to this set of jobs at the time of submission.
 universe = vanilla
-log = pvl-$(Process)-run7.log
-error = pvl-$(Process)-run7.err
+log = pvl-$(Process)-$(myprocess)-run7.log
+error = pvl-$(Process)-$(myprocess)-run7.err
 #
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
@@ -23,8 +23,8 @@ error = pvl-$(Process)-run7.err
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
 executable = ../shell_scripts/2017-12-11_pvl400-run7.sh
-arguments = $(Process) $(nsnp) $(s1) $(index) $(nboot_per_job)
-output = pvl-$(Process)-run7.out
+arguments = $(myprocess) $(nsnp) $(s1) $(index) $(nboot_per_job)
+output = pvl-$(Process)-$(myprocess)-run7.out
 #
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be
@@ -47,5 +47,5 @@ requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 +WantGlideIn = false
 
 # Tell HTCondor to run instances of our job:
-queue 400
+queue myprocess from 2017-12-14_run7-pvl400-badjobs.txt
 
