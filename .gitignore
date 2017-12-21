@@ -7,5 +7,5 @@ sim_data
 *.log
 *.swp
 *.csv
-
 .Rproj.user
+.Rhistory
