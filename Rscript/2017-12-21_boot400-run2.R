@@ -137,7 +137,7 @@ for (i in 1:nboot_per_job){
 }
 
 date <- Sys.Date()
-fn <- paste0(date, "_", proc_num, "_", paste(phenames, collapse = "_"), "-run7", ".txt")
+fn <- paste0(date, "_", proc_num, "_", paste(phenames, collapse = "_"), "-run2", ".txt")
 write.table(lrt, fn)
 q("no")
 
