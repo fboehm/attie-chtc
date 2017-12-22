@@ -45,7 +45,7 @@ pm2 <- pm[snp_p %in% shared_snps]
 
 #samples_to_drop <- c(360, 370, 268, 269, 309, 310) %>% as.character()
 
-phenames <- c("sim1", "sim2")
+#phenames <- c("sim1", "sim2")
 
 #load(file.path(PATH_TO_DATA, "expr.mrna.RData"))
 
