@@ -1,4 +1,3 @@
-
 # translate command line args
 ##First read in the arguments listed at the command line
 args <- commandArgs(TRUE)
@@ -50,7 +49,6 @@ nboot_per_pheno <- 400
 
 (trait_file_num <- proc_num %% nboot_per_pheno)
  # here is where we assign the trait file name
-# note that we've uploaded 100 files, each of which contains a bivariate trait.
 (fn <- paste0("Ysim-run", run_num, "_", trait_file_num, ".txt"))
 
 PATH_TO_SIM_DATA <- paste0("run", run_num, "-400sims")
@@ -93,7 +91,7 @@ rownames(k3) == rownames(phe4)
 # simulate a phenotype
 #X1 <- pp5[ , , index]X1 <- pp5[ , , index] #index is from command line args
 X1 <- pp5[ , , pleio_peak_index]
-pleiotropy::stagger_mats(X1, X1) -> X
+gemma2::stagger_mats(X1, X1) -> X
 set.seed(proc_num)
 calc_covs(pheno = phe4, kinship = k3) -> cc_out
 (cc_out$Vg -> Vg)
@@ -113,14 +111,8 @@ for (i in 1:nboot_per_job){
   calc_lrt(loglik_mat) -> lrt[i]
 }
 
-date <- Sys.Date()
-<<<<<<< HEAD:Rscript/2017-12-21_boot400-run2.R
-fn <- paste0(date, "_", proc_num, "_", paste(phenames, collapse = "_"), "-run2", ".txt")
-write.table(lrt, fn)
-=======
-fn_out <- paste0(date, "_", proc_num, "_", paste(phenames, collapse = "_"), "-run", run_num, ".txt")
+fn_out <- paste0(proc_num, "_", paste(phenames, collapse = "_"), "-run", run_num, ".txt")
 write.table(lrt, fn_out)
->>>>>>> 549081e6e4e7708091d1608ed3c3f80877754285:Rscript/boot400.R
 q("no")
 
 
