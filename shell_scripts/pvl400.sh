@@ -7,5 +7,5 @@ tar -xzf SLIBS.tar.gz
 export PATH=$(pwd)/R/bin:$PATH
 export LD_LIBRARY_PATH=$(pwd)/SS:$LD_LIBRARY_PATH
 # run R, with the name of your  R script
-R CMD BATCH '--args argname='$1' nsnp='$2' s1='$3' index='$4' nboot_per_job='$5' run_num = '$6'' Rscript/pvl400.R ''$1'_pvl400_run'$6'.Rout'
+R CMD BATCH '--args argname='$1' nsnp='$2' s1='$3' index='$4' nboot_per_job='$5' run_num='$6'' Rscript/pvl400.R ''$1'_pvl400_run'$6'.Rout'
 
