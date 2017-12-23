@@ -84,7 +84,7 @@ k3 <- k2[order(rownames(k2)), order(rownames(k2))]
 
 rownames(k3) == rownames(phe4)
 
-(read.csv(file.path(PATH_TO_SIM_DATA, "pleio-peak-indices-table-run", run_num, ".csv")) -> pleio_peak_indices)
+(read.csv(file.path(PATH_TO_SIM_DATA, paste0("pleio-peak-indices-table-run", run_num, ".csv"))) -> pleio_peak_indices)
 
 (fn_ind <- which(pleio_peak_indices$Yfns == fn))
 (pleio_peak_index <- pleio_peak_indices$pleio_indices[fn_ind])
