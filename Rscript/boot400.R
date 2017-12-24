@@ -91,7 +91,8 @@ rownames(k3) == rownames(phe4)
 # simulate a phenotype
 #X1 <- pp5[ , , index]X1 <- pp5[ , , index] #index is from command line args
 X1 <- pp5[ , , pleio_peak_index]
-gemma2::stagger_mats(X1, X1) -> X
+library(gemma2)
+stagger_mats(X1, X1) -> X
 # gemma2::stagger_mats(X1, X1) -> X
 set.seed(proc_num)
 calc_covs(pheno = phe4, kinship = k3) -> cc_out
