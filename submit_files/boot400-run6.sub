@@ -8,7 +8,7 @@ index=1364
 # index is location of pleiotropy peak
 nboot_per_job=10
 # which run in the experimental design?
-run_num=1
+run_num=6
 #
 # Specify the HTCondor Universe (vanilla is the default and is used
 #  for almost all jobs), the desired name of the HTCondor log file,
