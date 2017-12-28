@@ -43,7 +43,6 @@ request_disk = 760MB
 #
 # extra stuff for 'materialize'
 requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
-max_materialize = 5000
 # which computer grids to use:
 +WantFlocking = true
 +WantGlideIn = false
