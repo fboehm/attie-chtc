@@ -1,4 +1,5 @@
 *.txt
+bad-jobs*
 old_sub_files
 results
 *.digest
