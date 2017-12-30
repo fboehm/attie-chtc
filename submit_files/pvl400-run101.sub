@@ -1,8 +1,8 @@
 # hello-chtc.sub
 # My very first HTCondor submit file
-s1=1282 
+s1=1272 
 # start scan at this SNP index value
-nsnp=130 
+nsnp=150 
 # length of scan in number of SNPs
 # which run in the experimental design?
 run_num=101
