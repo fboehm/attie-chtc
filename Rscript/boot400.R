@@ -19,8 +19,6 @@ nsnp <- as.numeric(nsnp)
 print(nsnp)
 s1 <- as.numeric(s1)
 print(s1)
-index <- as.numeric(index)
-print(index)
 nboot_per_job <- as.numeric(nboot_per_job)
 print(nboot_per_job)
 run_num <- as.numeric(run_num)
@@ -89,7 +87,6 @@ rownames(k3) == rownames(phe4)
 (fn_ind <- which(pleio_peak_indices$Yfns == fn))
 (pleio_peak_index <- pleio_peak_indices$pleio_indices[fn_ind])
 # simulate a phenotype
-#X1 <- pp5[ , , index]X1 <- pp5[ , , index] #index is from command line args
 X1 <- pp5[ , , pleio_peak_index]
 library(gemma2)
 stagger_mats(X1, X1) -> X
