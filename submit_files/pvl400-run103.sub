@@ -2,6 +2,7 @@
 # My very first HTCondor submit file
 s1=1246 
 # start scan at this SNP index value
+## locus1: 1266; locus2: 1435.
 nsnp=210 
 # length of scan in number of SNPs
 # which run in the experimental design?
