@@ -1,10 +1,10 @@
-s1=1272 
+s1=1246 
 # start scan at this SNP index value
 # locus1: 1292; locus2: 1401. Add +/-20 to get full scan range
-nsnp=150 
+nsnp=210 
 # length of scan in number of SNPs
 # which run in the experimental design?
-run_num=101
+run_num=103
 #
 nboot_per_job=10
 # Specify the HTCondor Universe (vanilla is the default and is used
@@ -35,7 +35,7 @@ transfer_input_files = ../sim_data/run$(run_num)-400sims,../data,../Rscript,../s
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
 request_cpus = 1
-request_memory = 1.4GB
+request_memory = 1.5GB
 request_disk = 800MB
 #
 # extra stuff for 'materialize'
@@ -47,5 +47,5 @@ max_materialize = 5000
 +WantGlideIn = true
 
 # Tell HTCondor to run instances of our job:
-queue 16000
+queue 10
 
