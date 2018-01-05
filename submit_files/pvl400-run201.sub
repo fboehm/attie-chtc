@@ -36,8 +36,8 @@ transfer_input_files = ../sim_data/run$(run_num)-400sims,../data,../Rscript,../s
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
 request_cpus = 1
-request_memory = 1.4GB
-request_disk = 800MB
+request_memory = 1.5GB
+request_disk = 1GB
 #
 # extra stuff for 'materialize'
 requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
