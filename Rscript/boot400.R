@@ -110,7 +110,7 @@ for (i in 1:nboot_per_job){
   calc_lrt(loglik_mat) -> lrt[i]
 }
 
-fn_out <- paste0(proc_num, "_", paste(phenames, collapse = "_"), "-run", run_num, ".txt")
+fn_out <- paste0("boot400-run", run_num, "_", proc_num, ".txt")
 write.table(lrt, fn_out)
 q("no")
 
