@@ -5,12 +5,10 @@
 #PATH_TO_DERIVED_DATA <- "~/Box Sync/attie/attiedo"
 PATH_TO_DATA <- "data"
 #PATH_TO_DERIVED_DATA <- "~/attie"
-load("probs_17.RData")
-. -> probs
 #load(file.path(PATH_TO_DATA, "GM_Attie_allele_call_haploprobs_4qtl2_wave5.Rdata"))
 ### clinical phenotypes + phenotype dictionary
 ### ("pheno_clin" and "pheno_clin_dict")
-load(file.path(PATH_TO_DATA, "pheno_clin.RData"))
+#load(file.path(PATH_TO_DATA, "pheno_clin.RData"))
 ### kinship matrices ("loethod) ("K")
 load(file.path(PATH_TO_DATA, "kinship.RData"))
 ### covariate matrix ("covar")
