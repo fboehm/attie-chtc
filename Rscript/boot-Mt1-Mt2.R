@@ -38,11 +38,11 @@ pm <- pmap$`11`
 kinship <- K$`11`
 
 ## Determine which markers are shared between pmap & gmap
-snp_g <- dimnames(pp)[[3]]
-snp_p <- names(pm)
-shared_snps <- intersect(snp_g, snp_p)
-pp2 <- pp[ , , snp_g %in% shared_snps]
-pm2 <- pm[snp_p %in% shared_snps]
+(snp_g <- dimnames(pp)[[3]])
+(snp_p <- names(pm))
+(shared_snps <- intersect(snp_g, snp_p))
+(pp2 <- pp[ , , snp_g %in% shared_snps])
+(pm2 <- pm[snp_p %in% shared_snps])
 
 phenames <- c("Mt1", "Mt2")
 samples_to_drop <- c(360, 370, 268, 269, 309, 310) %>% as.character()
