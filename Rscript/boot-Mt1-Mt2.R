@@ -46,11 +46,12 @@ pm2 <- pm[snp_p %in% shared_snps]
 
 phenames <- c("Mt1", "Mt2")
 samples_to_drop <- c(360, 370, 268, 269, 309, 310) %>% as.character()
-load("~/Box Sync/attie/attiedo/RNAseq/DO378_islet.RData")
 # Mt2
-Mt2 <- expr.mrna[, which(colnames(expr.mrna) == "ENSMUSG00000031762")]
+#Mt2 <- expr.mrna[, which(colnames(expr.mrna) == "ENSMUSG00000031762")]
+load("data/Mt1.RData")
+load("data/Mt2.RData")
 #Mt1 
-Mt1 <- expr.mrna[, which(colnames(expr.mrna) == "ENSMUSG00000031765")]
+#Mt1 <- expr.mrna[, which(colnames(expr.mrna) == "ENSMUSG00000031765")]
 nboot_per_pheno <- 400
 
 #(trait_file_num <- proc_num %% nboot_per_pheno)
