@@ -10,7 +10,7 @@ PATH_TO_DATA <- "data"
 ### ("pheno_clin" and "pheno_clin_dict")
 #load(file.path(PATH_TO_DATA, "pheno_clin.RData"))
 ### kinship matrices ("loethod) ("K")
-load(file.path(PATH_TO_DATA, "kinship.RData"))
+load(file.path(PATH_TO_DATA, "kinship_qtl2.RData"))
 ### covariate matrix ("covar")
 #load(file.path(PATH_TO_DERIVED_DATA, "DerivedData/covar.RData"))
 ### physical map of the markers in the probs array
