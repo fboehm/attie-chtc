@@ -26,7 +26,7 @@ print(run_num)
 
 ###############
 # first, load setup.R
-source("Rscript/setup.R")
+source("Rscript/setup2.R")
 #source("Rscript/setup-chr17-G83.R")
 library(dplyr)
 library(qtl2pleio)
