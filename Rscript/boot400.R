@@ -30,6 +30,9 @@ source("Rscript/setup2.R")
 #source("Rscript/setup-chr17-G83.R")
 library(dplyr)
 library(qtl2pleio)
+load("probs_17.RData")
+. -> probs
+
 pp <- probs
 pm <- pmap$`17`
 kinship <- K$`17`
