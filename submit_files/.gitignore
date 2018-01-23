@@ -1,4 +1,5 @@
 *.txt
+.osgvo-user-job-wrapper.sh
 bad-jobs*
 old_sub_files
 results
