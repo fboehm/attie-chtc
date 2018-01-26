@@ -7,7 +7,7 @@ nsnp=167
 # which run in the experimental design?
 run_num=402
 # k choose 2 is the number of jobs that we queue
-k=4
+k=45
 # Specify the HTCondor Universe (vanilla is the default and is used
 #  for almost all jobs), the desired name of the HTCondor log file,
 #  and the desired name of the standard error file.  
@@ -47,5 +47,5 @@ requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 +WantGlideIn = true
 
 # Tell HTCondor to run instances of our job:
-queue 6
+queue 990
 
