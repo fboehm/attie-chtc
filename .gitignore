@@ -9,3 +9,4 @@ sim_data
 *.csv
 .Rproj.user
 .Rhistory
+.DS_Store
