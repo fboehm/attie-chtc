@@ -32,7 +32,7 @@ source("Rscript/setup2.R")
 library(dplyr)
 library(qtl2pleio)
 load("probs_11.RData")
-. -> probs
+. -> pp
 pm <- pmap$`11`
 kinship <- K$`11`
 
