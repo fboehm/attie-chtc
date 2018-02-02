@@ -43,8 +43,8 @@ request_disk = 1.1GB
 requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 
 # which computer grids to use:
-+WantFlocking = true
-+WantGlideIn = true
++WantFlocking = false
++WantGlideIn = false
 
 # Tell HTCondor to run instances of our job:
 queue 400
