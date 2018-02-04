@@ -51,13 +51,14 @@ load("data/expr-chr11-hotspot-local.RData")
 phe_local <- expr[, local_id]
 readRDS("data/chr11-hotspot-top10-nonlocal.rds") -> nonlocal_expr
 nonlocal_expr[ , nonlocal_id] -> phe_nonlocal
-phenames <- c(names(expr)[local_id], names(nonlocal_expr)[nonlocal_id])
+phenames <- c(colnames(expr)[local_id], colnames(nonlocal_expr)[nonlocal_id])
 samples_to_drop <- c(360, 370, 268, 269, 309, 310) %>% as.character()
 indic <- (is.na(phe_local) | is.na(phe_nonlocal))
 phe_nona <- cbind(phe_local, phe_nonlocal)[!indic, ]
 (phe <- phe_nona[!rownames(phe_nona) %in% samples_to_drop, ])
 rownames(phe) <- stringr::str_replace(rownames(phe), "DO-", "") %>% as.numeric() 
 rownames(pp2) %in% rownames(phe) -> pp_ind
+length(pp_ind) == nrow(pp2)
 pp2[pp_ind, , ] -> pp3
 dim(pp3)
 intersect(rownames(phe), rownames(pp3)) -> rn
