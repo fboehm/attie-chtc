@@ -45,5 +45,5 @@ requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 +WantGlideIn = true
 
 # Tell HTCondor to run instances of our job: (one job per LOCAL expr trait)
-queue 45
+queue 450
 
