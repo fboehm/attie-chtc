@@ -56,7 +56,9 @@ samples_to_drop <- c(360, 370, 268, 269, 309, 310) %>% as.character()
 #### find samples that are listed in both phenotype objects. 
 # note that expr has 378 mice, while insulin secr phenotypes object has 500 mice.
 rownames(nonlocal_traits) -> rn_nonlocal
-rownames(expr) -> rn_local
+rownames(expr) -> rn_local_pre
+stringr::str_split(rn_local_pre, pattern = "DO-") -> rn_local_pre_spl
+sapply(FUN = function(x)x[2], X = rn_local_pre_spl) -> rn_local
 intersect(rn_local, rn_nonlocal) -> shared_phe_rn
 phe_nonlocal2 <- phe_nonlocal[rn_nonlocal %in% shared_phe_rn]
 phe_local2 <- phe_local[rn_local %in% shared_phe_rn]
