@@ -45,5 +45,5 @@ requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 +WantGlideIn = true
 
 # Tell HTCondor to run instances of our job: 20 clinical traits * 24 expression traits 
-queue 480
+queue 10
 
