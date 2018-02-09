@@ -5,7 +5,7 @@ s1=3541
 nsnp=167 
 # length of scan in number of SNPs
 # which run in the experimental design?
-run_num=402
+run_num=405
 # k choose 2 is the number of jobs that we queue
 k=45
 # Specify the HTCondor Universe (vanilla is the default and is used
@@ -24,7 +24,7 @@ error = pvl-$(Process)-run$(run_num).err
 #  and increasing for the relevant number of jobs.
 executable = ../shell_scripts/pvl-expr-chr11-hotspot-local.sh
 arguments = $(Process) $(nsnp) $(s1) $(run_num) $(k)
-output = boot-$(Process)-run$(run_num).out
+output = pvl-$(Process)-run$(run_num).out
 #
 # Specify that HTCondor should transfer files to and from the
 #  computer where each job runs. The last of these lines *would* be

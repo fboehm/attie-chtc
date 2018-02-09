@@ -60,7 +60,7 @@ phe_pre <- expr[, expr_cols]
 
 phe_pre[ , 1] -> phe1
 phe_pre[ , 2] -> phe2
-phenames <- colnames(expr)[expr_cols]
+phenames <- colnames(phe_pre)
 samples_to_drop <- c(360, 370, 268, 269, 309, 310) %>% as.character()
 
 indic <- (is.na(phe1) | is.na(phe2))
