@@ -13,7 +13,6 @@ error = pvl-$(Process)-run$(run_num).err
 # read from text file to decide which genotypes object to transfer
 FILENAME=cecal.txt
 chr = head -n $(Process) $(FILENAME) | tail -n 1 | cut -f4
-echo $(chr)
 probs_file = 'http://proxy.chtc.wisc.edu/SQUID/fjboehm/probs_'$(chr)'.RData'
 echo $(probs_file)
 # Specify your executable (single binary or a script that runs several
