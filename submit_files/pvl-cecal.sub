@@ -14,7 +14,6 @@ error = pvl-$(Process)-run$(run_num).err
 FILENAME=cecal.txt
 chr = head -n $(Process) $(FILENAME) | tail -n 1 | cut -f4
 probs_file = 'http://proxy.chtc.wisc.edu/SQUID/fjboehm/probs_'$(chr)'.RData'
-echo $(probs_file)
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
 #  output (or "screen output").
