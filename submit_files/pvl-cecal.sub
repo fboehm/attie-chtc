@@ -12,7 +12,13 @@ log = pvl-$(Process)-run$(run_num).log
 error = pvl-$(Process)-run$(run_num).err
 # read from text file to decide which genotypes object to transfer
 FILENAME=cecal.txt
-chr = head -n $(Process) $(FILENAME) | tail -n 1 | cut -f4
+job_id = $(Process) + 1 + 1 
+# runs from 2 to (njobs + 1) due to header row. Recall that Process starts at zero.
+phe1 = head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f1
+phe2 = head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f2
+peak1 = head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f5
+peak2 = head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f8
+chr = head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f4
 probs_file = 'http://proxy.chtc.wisc.edu/SQUID/fjboehm/probs_'$(chr)'.RData'
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
@@ -20,7 +26,7 @@ probs_file = 'http://proxy.chtc.wisc.edu/SQUID/fjboehm/probs_'$(chr)'.RData'
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
 executable = ../shell_scripts/pvl-cecal.sh
-arguments = $(Process) $(run_num)
+arguments = $(Process) $(run_num) $(chr) $(phe1) $(phe2) $(peak1) $(peak2)
 output = pvl-$(Process)-run$(run_num).out
 #
 # Specify that HTCondor should transfer files to and from the
@@ -28,7 +34,7 @@ output = pvl-$(Process)-run$(run_num).out
 #  used if there were any other files needed for the executable to run.
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
-transfer_input_files = ../data,../Rscript,../shell_scripts,http://proxy.chtc.wisc.edu/SQUID/fjboehm/R_tidyverse.tar.gz,$(probs_file),http://proxy.chtc.wisc.edu/SQUID/SLIBS.tar.gz
+transfer_input_files = ../data,../Rscript,../shell_scripts,http://proxy.chtc.wisc.edu/SQUID/fjboehm/R.tar.gz,$(probs_file),http://proxy.chtc.wisc.edu/SQUID/SLIBS.tar.gz
 #
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
