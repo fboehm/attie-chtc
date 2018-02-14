@@ -41,5 +41,5 @@ requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 +WantGlideIn = true
 
 # Tell HTCondor to run instances of our job:
-queue phe1_name,phe2_name,phe1_lod,phe1_chr,phe1_position,phe2_lod,phe2_chr,phe2_position from cecal1
+queue phe1_name,phe2_name,phe1_lod,phe1_chr,phe1_position,phe2_lod,phe2_chr,phe2_position from cecal
 
