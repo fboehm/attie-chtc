@@ -30,6 +30,9 @@ chr <- as.integer(args$chr)
 print(chr)
 peak1 <- as.numeric(args$peak1)
 peak2 <- as.numeric(args$peak2)
+probs_file <- args$probs_file
+phe1_name <- args$phe1_name
+phe2_name <- args$phe2_name
 ###############
 
 ## ------------------------------------------------------------------------
