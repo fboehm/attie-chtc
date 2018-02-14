@@ -4,7 +4,7 @@ library(dplyr)
 library(readr)
 ##First read in the arguments listed at the command line
 
-args <- commandArgs(TRUE)
+args <- R.utils::commandArgs(trailingOnly = TRUE, asValues = TRUE)
 print(args)
 ##args is now a list of character vectors
 ## First check to see if arguments are passed.
@@ -14,7 +14,7 @@ if(length(args)==0){
 }else{
   for(i in 1:length(args)){
     if (i %in% c(4, 5)){
-      evalq(parse(text=args[[i]])))
+      evalq(parse(text=args[[i]]))
     } else {
     eval(parse(text=args[[i]]))
     }
