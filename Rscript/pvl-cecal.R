@@ -94,9 +94,9 @@ pm <- pmap[[chr]]
 which(pm > peak1)[1] -> p1
 which(pm > peak2)[1] -> p2
 
-start_index <- min(min(p1, p2) - 50, 1)
-stop_index <- min(dim(pp)[3], max(p1, p2) + 50)
-n_snp <- stop_index - start_index + 1
+(start_index <- max(min(p1, p2) - 50, 1))
+(stop_index <- min(dim(pp)[3], max(p1, p2) + 50))
+(n_snp <- stop_index - start_index + 1)
 
 
 ## ------------------------------------------------------------------------
