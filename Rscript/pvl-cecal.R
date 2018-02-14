@@ -9,30 +9,26 @@ print(args)
 ##args is now a list of character vectors
 ## First check to see if arguments are passed.
 ## Then cycle through each element of the list and evaluate the expressions.
-if(length(args)==0){
-  print("No arguments supplied.")
-}else{
-  for(i in 1:length(args)){
-    if (i %in% c(4, 5)){
-      evalq(parse(text=args[[i]]))
-    } else {
-    eval(parse(text=args[[i]]))
-    }
-  }
-}
-print(argname)
-proc_num <- as.numeric(argname)
+#if(length(args)==0){
+#  print("No arguments supplied.")
+#}else{
+#  for(i in 1:length(args)){
+#    eval(parse(text=args[[i]]))
+#  }
+#}
+print(args$argname)
+proc_num <- as.numeric(args$argname)
 print(proc_num)
 #nsnp <- as.numeric(nsnp)
 #print(nsnp)
 #s1 <- as.numeric(s1)
 #print(s1)
-run_num <- as.numeric(run_num)
+run_num <- as.numeric(args$run_num)
 print(run_num)
-chr <- as.integer(chr)
+chr <- as.integer(args$chr)
 print(chr)
-peak1 <- as.numeric(peak1)
-peak2 <- as.numeric(peak2)
+peak1 <- as.numeric(args$phe1_position)
+peak2 <- as.numeric(args$phe2_position)
 ###############
 
 ## ------------------------------------------------------------------------
