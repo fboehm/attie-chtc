@@ -17,7 +17,7 @@ probs_file = http://proxy.chtc.wisc.edu/SQUID/fjboehm/probs_$(phe1_chr).RData
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
 executable = ../shell_scripts/pvl-cecal.sh
-arguments = $(Process) $(run_num) $(phe1_chr) $(phe1) $(phe2) $(phe1_position) $(phe2_position) $(probs_file)
+arguments = $(Process) $(run_num) $(phe1_chr) $(phe1_name) $(phe2_name) $(phe1_position) $(phe2_position) $(probs_file)
 output = pvl-$(Process)-run$(run_num).out
 #
 # Specify that HTCondor should transfer files to and from the
@@ -41,5 +41,5 @@ requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 +WantGlideIn = true
 
 # Tell HTCondor to run instances of our job:
-queue phe1,phe2,phe1_lod,phe1_chr,phe1_position,phe2_lod,phe2_chr,phe2_position from cecal1
+queue phe1_name,phe2_name,phe1_lod,phe1_chr,phe1_position,phe2_lod,phe2_chr,phe2_position from cecal1
 

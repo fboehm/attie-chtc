@@ -13,7 +13,11 @@ if(length(args)==0){
   print("No arguments supplied.")
 }else{
   for(i in 1:length(args)){
+    if (i %in% c(4, 5)){
+      eval(parse(text=as.character(args[[i]])))
+    } else {
     eval(parse(text=args[[i]]))
+    }
   }
 }
 print(argname)
