@@ -27,8 +27,8 @@ run_num <- as.numeric(args$run_num)
 print(run_num)
 chr <- as.integer(args$chr)
 print(chr)
-peak1 <- as.numeric(args$phe1_position)
-peak2 <- as.numeric(args$phe2_position)
+peak1 <- as.numeric(args$peak1)
+peak2 <- as.numeric(args$peak2)
 ###############
 
 ## ------------------------------------------------------------------------
