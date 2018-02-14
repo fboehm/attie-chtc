@@ -12,13 +12,13 @@ log = pvl-$(Process)-run$(run_num).log
 error = pvl-$(Process)-run$(run_num).err
 # read from text file to decide which genotypes object to transfer
 FILENAME=cecal.txt
-job_id = $(($(Process) + 2))
+job_id = '$(($(Process) + 2))'
 # runs from 2 to (njobs + 1) due to header row. Recall that Process starts at zero.
 phe1 = head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f1 
 phe2 = head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f2
 peak1 = head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f5
 peak2 = head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f8
-chr = head -n '$(job_id)' $(FILENAME) | tail -n 1 | cut -f4
+chr = "head -n $(job_id) $(FILENAME)" | tail -n 1 | cut -f4
 probs_file = http://proxy.chtc.wisc.edu/SQUID/fjboehm/probs_$(chr).RData
 # Specify your executable (single binary or a script that runs several
 #  commands), arguments, and a files for HTCondor to store standard
