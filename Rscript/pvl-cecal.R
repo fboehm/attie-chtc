@@ -1,5 +1,7 @@
 ## ------------------------------------------------------------------------
-library(tidyverse)
+library(stringr)
+library(dplyr)
+library(readr)
 ##First read in the arguments listed at the command line
 
 args <- commandArgs(TRUE)
