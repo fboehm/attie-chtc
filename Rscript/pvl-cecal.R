@@ -41,7 +41,7 @@ peak2 <- as.numeric(args$peak2)
 cecal <- readRDS("data/attie_cecum_lipids_zscore_normalized.lltmod.v2.rds")
 
 ## ------------------------------------------------------------------------
-summed_ko <- readRDS("summedKO_DO_finalRSEM_log2transformed_20171212.rds")
+summed_ko <- readRDS("data/summedKO_DO_finalRSEM_log2transformed_20171212.rds")
 
 ## ------------------------------------------------------------------------
 phenames <- c(phe1, phe2)
