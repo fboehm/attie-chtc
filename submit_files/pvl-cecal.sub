@@ -12,7 +12,7 @@ log = pvl-$(Process)-run$(run_num).log
 error = pvl-$(Process)-run$(run_num).err
 # read from text file to decide which genotypes object to transfer
 FILENAME=cecal.txt
-job_id= eval '($(Process) + 2)'
+job_id= eval '$($(Process) + 2)'
 # runs from 2 to (njobs + 1) due to header row. Recall that Process starts at zero.
 phe1 = 'head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f1'
 phe2 = 'head -n $(job_id) $(FILENAME) | tail -n 1 | cut -f2'
