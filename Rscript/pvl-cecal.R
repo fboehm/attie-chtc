@@ -1,5 +1,3 @@
-install.packages("R.utils", repos = "https://cloud.r-project.org")
-
 
 ## ------------------------------------------------------------------------
 library(stringr)
