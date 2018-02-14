@@ -44,7 +44,7 @@ cecal <- readRDS("data/attie_cecum_lipids_zscore_normalized.lltmod.v2.rds")
 summed_ko <- readRDS("data/summedKO_DO_finalRSEM_log2transformed_20171212.rds")
 
 ## ------------------------------------------------------------------------
-phenames <- c(phe1, phe2)
+phenames <- c(phe1_name, phe2_name)
 cecal_phe <- cecal[, colnames(cecal) %in% phenames]
 names(cecal_phe) <- rownames(cecal)
 ko_phe <- summed_ko[, colnames(summed_ko) %in% phenames]
