@@ -80,18 +80,16 @@ which(pm > peak2)[1] -> p2
 ## ------------------------------------------------------------------------
 
 ## ---- cache = TRUE-------------------------------------------------------
-pheno <- as.matrix(t4[, 2:3])
-rownames(pheno) <- t4$mouse_id2
-colnames(pheno) <- colnames(t4)[2:3]
 # get covariates
 load("data/covar.RData")
 rownames(covar) <- paste0("DO", rownames(covar))
-covariates <- covar[ rownames(covar) %in% rownames(pheno), c(1, 2, 8:11)]
+covariates <- covar[ rownames(covar) %in% rownames(pp2), c(1, 2, 8:11)]
 arrange_by_rownames(covariates, pp2) -> covariates
+dim(covariates)
 check_rownames(covariates, pp2) -> indicator
 if (!indicator) stop()
 # run scan
-scan_out <- scan_pvl(probs = pp2, pheno = pheno, covariates = covariates, kinship = k2, start_snp1 = start_index, n_snp = n_snp)
+scan_out <- scan_pvl(probs = pp2, pheno = clin_phe, covariates = covariates, kinship = k2, start_snp1 = start_index, n_snp = n_snp)
 ## ------------------------------------------------------------------------
 fn_out <- paste0("pvl-run", run_num, "_", proc_num, "_", paste(phenames, collapse = "_"), ".txt")
 #save(list = "out", file = fn)
