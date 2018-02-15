@@ -48,7 +48,7 @@ clin_phe <- pheno_clin[, colnames(pheno_clin) %in% phenames]
 pp_fn <- paste0("attie_DO500_genoprobs_v5_chr", chr, ".rds")
 readRDS(pp_fn) -> pp
 # split mouse ids to remove "DO"
-str_split(phe$mouse_id, pattern = "DO") -> splitted
+str_split(rownames(clin_phe), pattern = "DO") -> splitted
 sapply(FUN = function(x)x[2], splitted) %>% as.numeric() -> phe_id
 rownames(clin_phe) <- phe_id
 # subset genotypes
