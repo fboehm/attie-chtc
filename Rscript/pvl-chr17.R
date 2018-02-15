@@ -81,8 +81,8 @@ which(pm > peak2)[1] -> p2
 
 ## ---- cache = TRUE-------------------------------------------------------
 # get covariates
-load("data/covar.RData")
-rownames(covar) <- paste0("DO", rownames(covar))
+load("data/covar.RData") # rownames DO NOT HAVE prefix "DO"
+rownames(covar) <- rownames(clin_phe)
 covariates <- covar[ rownames(covar) %in% rownames(pp2), c(1, 2, 8:11)]
 arrange_by_rownames(covariates, pp2) -> covariates
 dim(covariates)
