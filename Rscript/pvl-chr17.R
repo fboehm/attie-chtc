@@ -52,14 +52,17 @@ str_split(rownames(clin_phe), pattern = "DO") -> splitted
 sapply(FUN = function(x)x[2], splitted) %>% as.numeric() -> phe_id
 rownames(clin_phe) <- phe_id
 # subset genotypes
-pp2 <- pp[rownames(pp) %in% phe_id, , ]
+pp2 <- pp[rownames(pp) %in% rownames(clin_phe), , ]
+dim(pp2)
+clin_phe <- clin_phe[rownames(clin_phe) %in% rownames(pp2), ]
+dim(clin_phe)
 if (!check_dimnames(pp2, clin_phe)){
   arrange_by_rownames(pp2, clin_phe) -> pp2
 }
 check_dimnames(pp2, clin_phe)
-if (!indicator) stop()
+
 ## ------------------------------------------------------------------------
-readRDS("kinship_loco_v5.rds") -> K
+readRDS("data/kinship_loco_v5.rds") -> K
 K[[chr]] -> kinship
 k2 <- kinship[rownames(kinship) %in% rownames(pp2), rownames(kinship) %in% rownames(pp2)]
 arrange_by_rownames(k2, pp2) -> k2
