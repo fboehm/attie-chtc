@@ -86,7 +86,7 @@ rownames(covar) <- rownames(clin_phe)
 covariates <- covar[ rownames(covar) %in% rownames(pp2), c(1, 2, 8:11)]
 arrange_by_rownames(covariates, pp2) -> covariates
 dim(covariates)
-check_rownames(covariates, pp2) -> indicator
+check_dimnames(covariates, pp2) -> indicator
 if (!indicator) stop()
 # run scan
 scan_out <- scan_pvl(probs = pp2, pheno = clin_phe, covariates = covariates, kinship = k2, start_snp1 = start_index, n_snp = n_snp)
