@@ -48,9 +48,9 @@ clin_phe <- pheno_clin[, colnames(pheno_clin) %in% phenames]
 pp_fn <- paste0("attie_DO500_genoprobs_v5_chr", chr, ".rds")
 readRDS(pp_fn) -> pp
 # split mouse ids to remove "DO"
-str_split(rownames(clin_phe), pattern = "DO") -> splitted
-sapply(FUN = function(x)x[2], splitted) %>% as.numeric() -> phe_id
-rownames(clin_phe) <- phe_id
+#str_split(rownames(clin_phe), pattern = "DO") -> splitted
+#sapply(FUN = function(x)x[2], splitted) %>% as.numeric() -> phe_id
+#rownames(clin_phe) <- phe_id
 # subset genotypes
 pp2 <- pp[rownames(pp) %in% rownames(clin_phe), , ]
 dim(pp2)
@@ -64,6 +64,7 @@ check_dimnames(pp2, clin_phe)
 ## ------------------------------------------------------------------------
 readRDS("data/kinship_loco_v5.rds") -> K
 K[[chr]] -> kinship
+rownames(kinship)
 k2 <- kinship[rownames(kinship) %in% rownames(pp2), rownames(kinship) %in% rownames(pp2)]
 arrange_by_rownames(k2, pp2) -> k2
 ## ------------------------------------------------------------------------
@@ -84,6 +85,7 @@ rownames(pheno) <- t4$mouse_id2
 colnames(pheno) <- colnames(t4)[2:3]
 # get covariates
 load("data/covar.RData")
+rownames(covar) <- paste0("DO", rownames(covar))
 covariates <- covar[ rownames(covar) %in% rownames(pheno), c(1, 2, 8:11)]
 arrange_by_rownames(covariates, pp2) -> covariates
 check_rownames(covariates, pp2) -> indicator
