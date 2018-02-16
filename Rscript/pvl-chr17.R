@@ -89,7 +89,7 @@ dim(covariates)
 check_dimnames(covariates, pp2) -> indicator
 if (!indicator) stop()
 # run scan
-scan_out <- scan_pvl(probs = pp2, pheno = clin_phe, covariates = covariates, kinship = k2, start_snp1 = start_index, n_snp = n_snp)
+scan_out <- scan_pvl(probs = pp2, pheno = log(clin_phe), covariates = covariates, kinship = k2, start_snp1 = start_index, n_snp = n_snp)
 ## ------------------------------------------------------------------------
 fn_out <- paste0("pvl-run", run_num, "_", proc_num, "_", paste(phenames, collapse = "_"), ".txt")
 #save(list = "out", file = fn)
