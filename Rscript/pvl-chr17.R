@@ -18,11 +18,7 @@ print(chr)
 (phe1_name <- args$phe1_name)
 (phe2_name <- args$phe2_name)
 
-(readr::read_tsv("annotation-chr17", col_names = FALSE) -> bar)
-phenames <- unlist(bar[proc_num + 1, 1:2])
-chr <- unlist(bar[proc_num + 1, 4])
-peak1 <- unlist(bar[proc_num + 1, 5])
-peak2 <- unlist(bar[proc_num + 1, 8])
+phenames <- c(phe1_name, phe2_name)
 
 ## ------------------------------------------------------------------------
 load("data/pheno_clin_v6.RData")
