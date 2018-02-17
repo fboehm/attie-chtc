@@ -53,13 +53,13 @@ anal %>%
 ## ------------------------------------------------------------------------
 # apply transformations to clin_phe as needed in analyses_clin.csv
 foo <- do.call(anal_phe1$transf[1], list(clin_phe[ , 1] + anal_phe1$offset[1]))
-if (anal_phe1$winsorize){
+if (anal_phe1$winsorize[1]){
   foo <- broman::winsorize(foo)
 }
 foo -> clin_phe[ , 1]
 
 foo <- do.call(anal_phe2$transf[1], list(clin_phe[ , 2] + anal_phe2$offset[1]))
-if (anal_phe2$winsorize){
+if (anal_phe2$winsorize[1]){
   foo <- broman::winsorize(foo)
 }
 foo -> clin_phe[ , 2]
