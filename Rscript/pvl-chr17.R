@@ -18,15 +18,16 @@ print(chr)
 (phe1_name <- args$phe1_name)
 (phe2_name <- args$phe2_name)
 
-phenames <- c(phe1_name, phe2_name)
+(phenames <- c(phe1_name, phe2_name))
 
 ## ------------------------------------------------------------------------
 load("data/pheno_clin_v6.RData")
 ## ------------------------------------------------------------------------
 clin_phe1 <- pheno_clin[, colnames(pheno_clin) == phenames[1]]
 clin_phe2 <- pheno_clin[, colnames(pheno_clin) == phenames[2]]
-cbind(clin_phe1, clin_phe2) -> clin_phe
-
+(cbind(clin_phe1, clin_phe2) -> clin_phe)
+rownames(clin_phe)
+rownames(clin_phe) <- rownames(pheno_clin)
 ## ------------------------------------------------------------------------
 # load allele probs file for appropriate chromosome
 pp_fn <- paste0("attie_DO500_genoprobs_v5_chr", chr, ".rds")
@@ -45,10 +46,10 @@ check_dimnames(pp2, clin_phe)
 ## ---- read_analyses_file-------------------------------------------------
 readr::read_csv("data/analyses_clin.csv") -> anal
 library(dplyr)
-anal %>%
-  filter(pheno == phenames[1]) -> anal_phe1
-anal %>%
-  filter(pheno == phenames[2]) -> anal_phe2
+(anal %>%
+  filter(pheno == phenames[1]) -> anal_phe1)
+(anal %>%
+  filter(pheno == phenames[2]) -> anal_phe2)
 
 ## ------------------------------------------------------------------------
 # apply transformations to clin_phe as needed in analyses_clin.csv
