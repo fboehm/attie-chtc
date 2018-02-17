@@ -1,30 +1,13 @@
 library(qtl2pleio)
-
-## ------------------------------------------------------------------------
 library(stringr)
 library(dplyr)
 library(readr)
-##First read in the arguments listed at the command line
-
 args <- R.utils::commandArgs(trailingOnly = TRUE, asValues = TRUE)
 print(args)
-##args is now a list of character vectors
-## First check to see if arguments are passed.
-## Then cycle through each element of the list and evaluate the expressions.
-#if(length(args)==0){
-#  print("No arguments supplied.")
-#}else{
-#  for(i in 1:length(args)){
-#    eval(parse(text=args[[i]]))
-#  }
-#}
+
 print(args$argname)
 proc_num <- as.numeric(args$argname)
 print(proc_num)
-#nsnp <- as.numeric(nsnp)
-#print(nsnp)
-#s1 <- as.numeric(s1)
-#print(s1)
 run_num <- as.numeric(args$run_num)
 print(run_num)
 chr <- as.integer(args$chr)
@@ -34,26 +17,28 @@ print(chr)
 (probs_file <- args$probs_file)
 (phe1_name <- args$phe1_name)
 (phe2_name <- args$phe2_name)
-###############
 
+(readr::read_tsv("annotation-chr17", col_names = FALSE) -> bar)
+phenames <- unlist(bar[proc_num + 1, 1:2])
+chr <- unlist(bar[proc_num + 1, 4])
+peak1 <- unlist(bar[proc_num + 1, 5])
+peak2 <- unlist(bar[proc_num + 1, 8])
 
 ## ------------------------------------------------------------------------
 load("data/pheno_clin_v6.RData")
 ## ------------------------------------------------------------------------
-phenames <- c(phe1_name, phe2_name)
-clin_phe <- pheno_clin[, colnames(pheno_clin) %in% phenames]
+clin_phe1 <- pheno_clin[, colnames(pheno_clin) == phenames[1]]
+clin_phe2 <- pheno_clin[, colnames(pheno_clin) == phenames[2]]
+cbind(clin_phe1, clin_phe2) -> clin_phe
 
 ## ------------------------------------------------------------------------
 # load allele probs file for appropriate chromosome
 pp_fn <- paste0("attie_DO500_genoprobs_v5_chr", chr, ".rds")
 readRDS(pp_fn) -> pp
-# split mouse ids to remove "DO"
-#str_split(rownames(clin_phe), pattern = "DO") -> splitted
-#sapply(FUN = function(x)x[2], splitted) %>% as.numeric() -> phe_id
-#rownames(clin_phe) <- phe_id
 # subset genotypes
 pp2 <- pp[rownames(pp) %in% rownames(clin_phe), , ]
 dim(pp2)
+
 clin_phe <- clin_phe[rownames(clin_phe) %in% rownames(pp2), ]
 dim(clin_phe)
 if (!check_dimnames(pp2, clin_phe)){
@@ -61,12 +46,44 @@ if (!check_dimnames(pp2, clin_phe)){
 }
 check_dimnames(pp2, clin_phe)
 
+## ---- read_analyses_file-------------------------------------------------
+readr::read_csv("data/analyses_clin.csv") -> anal
+library(dplyr)
+anal %>%
+  filter(pheno == phenames[1]) -> anal_phe1
+anal %>%
+  filter(pheno == phenames[2]) -> anal_phe2
+
+## ------------------------------------------------------------------------
+# apply transformations to clin_phe as needed in analyses_clin.csv
+foo <- do.call(anal_phe1$transf[1], list(clin_phe[ , 1] + anal_phe1$offset[1]))
+if (anal_phe1$winsorize){
+  foo <- broman::winsorize(foo)
+}
+foo -> clin_phe[ , 1]
+
+foo <- do.call(anal_phe2$transf[1], list(clin_phe[ , 2] + anal_phe2$offset[1]))
+if (anal_phe2$winsorize){
+  foo <- broman::winsorize(foo)
+}
+foo -> clin_phe[ , 2]
+
+## ------------------------------------------------------------------------
+# define covariates needed
+(colnames(anal_phe1)[9:20])[unlist(anal_phe1[1, 9:20])] -> phe1_cov
+(colnames(anal_phe2)[9:20])[unlist(anal_phe2[1, 9:20])] -> phe2_cov
+cov_names <- union(phe1_cov, phe2_cov)
+
+## ----read_kinship--------------------------------------------------------
+# we'll use both sex and diet days, but not wave indicators, below
 ## ------------------------------------------------------------------------
 readRDS("data/kinship_loco_v5.rds") -> K
 K[[chr]] -> kinship
 rownames(kinship)
 k2 <- kinship[rownames(kinship) %in% rownames(pp2), rownames(kinship) %in% rownames(pp2)]
 arrange_by_rownames(k2, pp2) -> k2
+
+## ----read_pmap-----------------------------------------------------------
 ## ------------------------------------------------------------------------
 readRDS("data/grid_pmap.rds") -> pmap
 pm <- pmap[[chr]]
@@ -78,26 +95,25 @@ which(pm > peak2)[1] -> p2
 (n_snp <- stop_index - start_index + 1)
 
 ## ------------------------------------------------------------------------
-
 ## ---- cache = TRUE-------------------------------------------------------
 # get covariates
 load("data/covar.RData") # rownames DO NOT HAVE prefix "DO"
 rownames(covar) <- rownames(clin_phe)
-covariates <- covar[ rownames(covar) %in% rownames(pp2), c(1, 2, 8:11)]
+covariates <- covar[ rownames(covar) %in% rownames(pp2), colnames(covar) %in% cov_names]
 apply(FUN = function(x)identical(x, rep(x[1], length(x))), X = covariates, MARGIN = 2) -> cov_cols
 # check covariate columns for all entries having the same value
 # remove those columns that have all entries being a single value
 covariates <- covariates[ , !cov_cols]
-# arrange rows by name
+#
 arrange_by_rownames(covariates, pp2) -> covariates
 dim(covariates)
 check_dimnames(covariates, pp2) -> indicator
 if (!indicator) stop()
+
+## ---- cache = TRUE-------------------------------------------------------
 # run scan
-#scan_out <- scan_pvl(probs = pp2, pheno = log(clin_phe), covariates = covariates, kinship = k2, start_snp1 = start_index, n_snp = n_snp)
-scan_out <- scan_pvl(probs = pp2, pheno = log(clin_phe), kinship = k2, start_snp1 = start_index, n_snp = n_snp)
+scan_out <- scan_pvl(probs = pp2, pheno = clin_phe, kinship = k2, start_snp1 = start_index, n_snp = n_snp, max_iter = 10000, max_prec = 0.00001)
 ## ------------------------------------------------------------------------
 fn_out <- paste0("pvl-run", run_num, "_", proc_num, "_", paste(phenames, collapse = "_"), ".txt")
-#save(list = "out", file = fn)
-write.table(scan_out, fn_out, quote = FALSE)
-q("no")
+save(list = "out", file = fn)
+
