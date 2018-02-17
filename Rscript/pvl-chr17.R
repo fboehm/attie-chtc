@@ -28,6 +28,7 @@ clin_phe2 <- pheno_clin[, colnames(pheno_clin) == phenames[2]]
 (cbind(clin_phe1, clin_phe2) -> clin_phe)
 rownames(clin_phe)
 rownames(clin_phe) <- rownames(pheno_clin)
+colnames(clin_phe) <- phenames
 ## ------------------------------------------------------------------------
 # load allele probs file for appropriate chromosome
 pp_fn <- paste0("attie_DO500_genoprobs_v5_chr", chr, ".rds")
@@ -64,7 +65,8 @@ if (anal_phe2$winsorize[1]){
   foo <- broman::winsorize(foo)
 }
 foo -> clin_phe[ , 2]
-
+# check clin_phe
+clin_phe
 ## ------------------------------------------------------------------------
 # define covariates needed
 (colnames(anal_phe1)[9:20])[unlist(anal_phe1[1, 9:20])] -> phe1_cov
@@ -110,6 +112,8 @@ if (length(cov_names) > 0){
 } else {
   covariates <- NULL
 }
+# check covariates
+covariates
 ## ---- cache = TRUE-------------------------------------------------------
 # run scan
 scan_out <- scan_pvl(probs = pp2, pheno = clin_phe, covariates = covariates, kinship = k2, start_snp1 = start_index, n_snp = n_snp, max_iter = 10000, max_prec = 0.00001)
