@@ -103,7 +103,7 @@ if (length(cov_names) > 0){
   (apply(FUN = function(x)identical(x, rep(x[1], length(x))), X = covariates, MARGIN = 2) -> cov_cols)
 # check covariate columns for all entries having the same value
 # remove those columns that have all entries being a single value
-  covariates <- covariates[ , !cov_cols]
+  covariates <- covariates[ , !cov_cols, drop = FALSE]
 #
   arrange_by_rownames(covariates, pp2) -> covariates
   dim(covariates)
