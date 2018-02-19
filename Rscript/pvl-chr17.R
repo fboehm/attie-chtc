@@ -99,7 +99,7 @@ which(pm > peak2)[1] -> p2
 load("data/covar.RData") # rownames DO NOT HAVE prefix "DO"
 rownames(covar) <- rownames(clin_phe)
 if (length(cov_names) > 0){
-  (covariates <- covar[ , colnames(covar) %in% cov_names])
+  (covariates <- covar[ , colnames(covar) %in% cov_names, drop = FALSE])
   (apply(FUN = function(x)identical(x, rep(x[1], length(x))), X = covariates, MARGIN = 2) -> cov_cols)
 # check covariate columns for all entries having the same value
 # remove those columns that have all entries being a single value
@@ -119,5 +119,5 @@ covariates
 scan_out <- scan_pvl(probs = pp2, pheno = clin_phe, covariates = covariates, kinship = k2, start_snp1 = start_index, n_snp = n_snp, max_iter = 10000, max_prec = 0.00001)
 ## ------------------------------------------------------------------------
 fn_out <- paste0("pvl-run", run_num, "_", proc_num, "_", paste(phenames, collapse = "_"), ".txt")
-save(list = "scan_out", file = fn_out)
+write.table(scan_out, fn_out)
 
