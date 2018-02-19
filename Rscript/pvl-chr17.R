@@ -71,7 +71,7 @@ clin_phe
 # define covariates needed
 (colnames(anal_phe1)[9:20])[unlist(anal_phe1[1, 9:20])] -> phe1_cov
 (colnames(anal_phe2)[9:20])[unlist(anal_phe2[1, 9:20])] -> phe2_cov
-cov_names <- union(phe1_cov, phe2_cov)
+cov_names <- intersect(phe1_cov, phe2_cov)
 
 ## ----read_kinship--------------------------------------------------------
 # we'll use both sex and diet days, but not wave indicators, below
