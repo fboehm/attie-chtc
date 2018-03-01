@@ -24,10 +24,8 @@ recla[[6]][ , 1, drop = FALSE] -> sex
 insert_pseudomarkers(recla, step = 0.1) -> pseudomap
 
 ## ------------------------------------------------------------------------
-probs <- calc_genoprob(recla, map = pseudomap)
-
 ## ------------------------------------------------------------------------
-aprobs <- genoprob_to_alleleprob(probs)
+aprobs <- readRDS("data/recla-aprobs.rds")
 
 ## ------------------------------------------------------------------------
 kinship <- calc_kinship(aprobs, "loco")
