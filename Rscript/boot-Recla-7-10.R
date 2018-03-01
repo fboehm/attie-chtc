@@ -73,7 +73,7 @@ for (i in 1:nboot_per_job){
   matrix(foo, ncol = 2, byrow = FALSE) -> Ysim
   rownames(Ysim) <- rownames(phe_nona)
   colnames(Ysim) <- c("t1", "t2")
-  scan_pvl(probs = pp[!missing_indic, , ], pheno = Ysim, covariates = sex[!missing_indic, drop = FALSE], kinship = k_nona, start_snp1 = s1, n_snp = nsnp) -> loglik
+  scan_pvl(probs = pp[!missing_indic, , ], pheno = Ysim, covariates = sex[!missing_indic, , drop = FALSE], kinship = k_nona, start_snp1 = s1, n_snp = nsnp) -> loglik
 # in above call, s1 & nsnp come from command line args
   calc_lrt_tib(loglik) -> lrt[i]
 }
