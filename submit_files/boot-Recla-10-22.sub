@@ -45,5 +45,5 @@ requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 +WantGlideIn = true
 
 # Tell HTCondor to run instances of our job:
-queue 10
+queue 1000
 
