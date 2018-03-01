@@ -24,13 +24,11 @@ recla[[6]][ , 1, drop = FALSE] -> sex
 insert_pseudomarkers(recla, step = 0.1) -> pseudomap
 
 ## ------------------------------------------------------------------------
-probs <- calc_genoprob(recla, map = pseudomap)
+## ------------------------------------------------------------------------
+pp <- readRDS("data/recla-aprobs-chr8.rds")
 
 ## ------------------------------------------------------------------------
-aprobs <- genoprob_to_alleleprob(probs)
-
-## ------------------------------------------------------------------------
-kinship <- calc_kinship(aprobs, "loco")
+kinship <- readRDS("data/recla-kinship.rds")
 
 ## ------------------------------------------------------------------------
 recla$pheno -> ph
@@ -39,7 +37,6 @@ apply(FUN = broman::winsorize, X = lph, MARGIN = 2) -> wlph
 
 ## ------------------------------------------------------------------------
 phe <- wlph[, c(7, 22)]
-pp <- aprobs$`8`
 gm <- pseudomap$`8`
 k <- kinship[[8]]
 ## ------------------------------------------------------------------------
