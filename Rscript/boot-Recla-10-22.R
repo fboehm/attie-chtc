@@ -71,7 +71,7 @@ lrt <- numeric()
 for (i in 1:nboot_per_job){
   sim1(X = X, B = B, Vg = Vg, Ve = Ve, kinship = k) -> foo
   matrix(foo, ncol = 2, byrow = FALSE) -> Ysim
-  scan_pvl(probs = pp, pheno = Ysim, kinship = k, start_snp1 = s1, n_snp = nsnp) -> loglik
+  scan_pvl(probs = pp[!missing_indic, , ], pheno = Ysim, kinship = k, start_snp1 = s1, n_snp = nsnp) -> loglik
 # in above call, s1 & nsnp come from command line args
   calc_lrt_tib(loglik) -> lrt[i]
 }
