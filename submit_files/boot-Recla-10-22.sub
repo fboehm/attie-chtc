@@ -8,8 +8,6 @@ nsnp=350
 run_num=551
 #
 nboot_per_job=1
-
-# Specify the HTCondor Universe (vanilla is the default and is used
 #  for almost all jobs), the desired name of the HTCondor log file,
 #  and the desired name of the standard error file.  
 #  Wherever you see $(Cluster), HTCondor will insert the queue number
