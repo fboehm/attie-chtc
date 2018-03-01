@@ -37,8 +37,8 @@ transfer_input_files = ../data,../Rscript,../shell_scripts,http://proxy.chtc.wis
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
 request_cpus = 1
-request_memory = 2GB
-request_disk = 2GB
+request_memory = 1GB
+request_disk = 1GB
 #
 requirements = (OpSysMajorVer == 6) || (OpSysMajorVer == 7)
 
