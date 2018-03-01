@@ -14,9 +14,7 @@ print(args$argname)
 (nboot_per_job <- args$nboot_per_job) # think 1 boot per job
 ###############
 library(qtl2)
-file <- paste0("https://raw.githubusercontent.com/rqtl/",
-               "qtl2data/master/DO_Recla/recla.zip")
-recla <- read_cross2(file)
+recla <- readRDS("data/recla.rds")
 # make sex a covariate for use in pvl_scan
 recla[[6]][ , 1, drop = FALSE] -> sex
 # insert pseudomarkers
