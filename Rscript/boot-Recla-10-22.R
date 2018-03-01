@@ -20,6 +20,7 @@ library(qtl2)
 recla <- readRDS("data/recla.rds")
 # make sex a covariate for use in pvl_scan
 recla[[6]][ , 1, drop = FALSE] -> sex
+sex <- sex == "female"
 # insert pseudomarkers
 insert_pseudomarkers(recla, step = 0.1) -> pseudomap
 
