@@ -15,6 +15,8 @@ print(args$argname)
 (proc_num <- as.numeric(args$argname))
 (run_num <- as.numeric(args$run_num))
 (nboot_per_job <- args$nboot_per_job) # think 1 boot per job
+(nsnp <- as.integer(args$nsnp))
+(s1 <- as.integer(args$s1))
 ###############
 library(qtl2)
 recla <- readRDS("data/recla.rds")
