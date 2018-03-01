@@ -52,26 +52,28 @@ X1 <- pp[ , , pleio_peak_index]
 cbind(X1, unlist(sex)) -> Xpre
 ## remove subjects with missing values of phenotype
 is.na(phe[ , 1]) | is.na(phe[ , 2]) -> missing_indic
-phe <- phe[!missing_indic, ]
-Xpre <- Xpre[!missing_indic, ]
-k <- k[!missing_indic, !missing_indic]
+phe_nona <- phe[!missing_indic, ]
+Xpre_nona <- Xpre[!missing_indic, ]
+k_nona <- k[!missing_indic, !missing_indic]
 ##
-gemma2::stagger_mats(Xpre, Xpre) -> X
+gemma2::stagger_mats(Xpre_nona, Xpre_nona) -> X
 set.seed(proc_num)
-calc_covs(pheno = phe, kinship = k) -> cc_out
+calc_covs(pheno = phe_nona, kinship = k_nona) -> cc_out
 (cc_out$Vg -> Vg)
 (cc_out$Ve -> Ve)
 # calculate Sigma
-calc_Sigma(Vg = Vg, Ve = Ve, K = k) -> Sigma
+calc_Sigma(Vg = Vg, Ve = Ve, K = k_nona) -> Sigma
 solve(Sigma) -> Sigma_inv
 # calc Bhat 
-B <- calc_Bhat(X = X, Sigma_inv = Sigma_inv, Y = phe)
+B <- calc_Bhat(X = X, Sigma_inv = Sigma_inv, Y = phe_nona)
 # Start loop
 lrt <- numeric()
 for (i in 1:nboot_per_job){
-  sim1(X = X, B = B, Vg = Vg, Ve = Ve, kinship = k) -> foo
+  sim1(X = X, B = B, Vg = Vg, Ve = Ve, kinship = k_nona) -> foo
   matrix(foo, ncol = 2, byrow = FALSE) -> Ysim
-  scan_pvl(probs = pp[!missing_indic, , ], pheno = Ysim, kinship = k, start_snp1 = s1, n_snp = nsnp) -> loglik
+  rownames(Ysim) <- rownames(phe_nona)
+  colnames(Ysim) <- c("t1", "t2")
+  scan_pvl(probs = pp[!missing_indic, , ], pheno = Ysim, kinship = k_nona, start_snp1 = s1, n_snp = nsnp) -> loglik
 # in above call, s1 & nsnp come from command line args
   calc_lrt_tib(loglik) -> lrt[i]
 }
