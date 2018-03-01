@@ -46,7 +46,7 @@ library(qtl2pleio)
 ###############
 # simulate a phenotype
 X1 <- pp[ , , pleio_peak_index]
-cbind(X1, sex) -> Xpre
+cbind(X1, as.vector(sex)) -> Xpre
 gemma2::stagger_mats(Xpre, Xpre) -> X
 set.seed(proc_num)
 calc_covs(pheno = phe, kinship = k) -> cc_out
