@@ -48,6 +48,12 @@ library(qtl2pleio)
 # simulate a phenotype
 X1 <- pp[ , , pleio_peak_index]
 cbind(X1, unlist(sex)) -> Xpre
+## remove subjects with missing values of phenotype
+is.na(phe[ , 1]) | is.na(phe[ , 2]) -> missing_indic
+phe <- phe[!missing_indic, ]
+Xpre <- Xpre[!missing_indic, ]
+k <- k[!missing_indic, !missing_indic]
+##
 gemma2::stagger_mats(Xpre, Xpre) -> X
 set.seed(proc_num)
 calc_covs(pheno = phe, kinship = k) -> cc_out
