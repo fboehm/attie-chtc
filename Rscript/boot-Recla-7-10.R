@@ -2,6 +2,9 @@ library(qtl2pleio)
 library(stringr)
 library(dplyr)
 library(readr)
+##
+pleio_peak_index <- 755
+##
 args <- R.utils::commandArgs(trailingOnly = TRUE, asValues = TRUE)
 # translate command line args
 print(args)
@@ -18,10 +21,6 @@ recla <- read_cross2(file)
 recla[[6]][ , 1, drop = FALSE] -> sex
 # insert pseudomarkers
 insert_pseudomarkers(recla, step = 0.1) -> pseudomap
-
-## ------------------------------------------------------------------------
-lapply(FUN = length, X = pseudomap) -> lens
-sum(lens)
 
 ## ------------------------------------------------------------------------
 probs <- calc_genoprob(recla, map = pseudomap)
@@ -41,6 +40,7 @@ apply(FUN = broman::winsorize, X = lph, MARGIN = 2) -> wlph
 phe <- wlph[, c(7, 10)]
 pp <- aprobs$`8`
 gm <- pseudomap$`8`
+k <- kinship[[8]]
 ## ------------------------------------------------------------------------
 library(qtl2pleio)
 

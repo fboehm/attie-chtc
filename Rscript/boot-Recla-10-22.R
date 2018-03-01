@@ -1,3 +1,9 @@
+##
+pleio_peak_index <- 788
+##
+
+
+
 library(qtl2pleio)
 library(stringr)
 library(dplyr)
@@ -20,10 +26,6 @@ recla[[6]][ , 1, drop = FALSE] -> sex
 insert_pseudomarkers(recla, step = 0.1) -> pseudomap
 
 ## ------------------------------------------------------------------------
-lapply(FUN = length, X = pseudomap) -> lens
-sum(lens)
-
-## ------------------------------------------------------------------------
 probs <- calc_genoprob(recla, map = pseudomap)
 
 ## ------------------------------------------------------------------------
@@ -41,6 +43,7 @@ apply(FUN = broman::winsorize, X = lph, MARGIN = 2) -> wlph
 phe <- wlph[, c(10, 22)]
 pp <- aprobs$`8`
 gm <- pseudomap$`8`
+k <- kinship[[8]]
 ## ------------------------------------------------------------------------
 library(qtl2pleio)
 
