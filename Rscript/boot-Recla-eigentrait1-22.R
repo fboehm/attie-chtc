@@ -47,7 +47,7 @@ svd_out$u[ , 1, drop = FALSE] -> eigentrait1
 rownames(eigentrait1) <- rownames(wlph[!missing_indic, ])
 
 # create phe
-phe <- cbind(wlph[ , 22], eigentrait1)
+phe <- cbind(wlph[!missing_indic , 22], eigentrait1)
 gm <- pseudomap$`8`
 k <- kinship[[8]]
 ## ------------------------------------------------------------------------
